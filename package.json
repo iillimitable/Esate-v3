@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "mongoose": "^7.6.3"
@@ -8,9 +9,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
-  "devDependencies": {},
   "scripts": {
-    "dev" : "nodemon api/index.js",
+    "dev": "nodemon api/index.js",
     "start": "node api/index.js"
   },
   "keywords": [],
