@@ -26,9 +26,9 @@ app.use("/api/auth", authRouter);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
-  const message = err.message || "internal server error";
+  const message = err.message || "internal server error 🥺 from auth.route.js";
   return res.status(statusCode).json({
-    success: true,
+    success: false,
     statusCode,
     message,
   });
