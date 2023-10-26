@@ -21,9 +21,9 @@ export default function Header() {
           />
           <FcSearch />
         </form>
-        <ul className="flex gap-3">
+        <ul className="flex gap-5">
           <Link to="/">
-            <li className="hidden sm:inline hover:underlin ">Home</li>
+            <li className="hidden sm:inline hover:underline  ">Home</li>
           </Link>
 
           <Link to="/about">
@@ -31,7 +31,7 @@ export default function Header() {
           </Link>
 
           <Link to="/sign-in">
-            <li className="hover:underline">Singin</li>
+            <li className="hover:underline">Sign in</li>
           </Link>
         </ul>
       </div>
