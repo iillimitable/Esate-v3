@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch,useSelector } from "react-redux";
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from "../redux/user/userSlice";
+import OAuth from "../components/OAuth";
 
 export default function Signin() {
   const [formData, setFormData] = useState({});
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const { loading, error } = useSelector((state) => state.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setFormData({
@@ -17,27 +24,24 @@ export default function Signin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true);
-      const res = await fetch('/api/auth/signin', {
-        method: 'POST',
+      dispatch(signInStart());
+      const res = await fetch("/api/auth/signin", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
       const data = await res.json();
       console.log(data);
       if (data.success === false) {
-        setLoading(false);
-        setError(data.message);
+        dispatch(signInFailure(data.message));
         return;
       }
-      setLoading(false);
-      setError(null);
-      navigate('/');
+      dispatch(signInSuccess(data));
+      navigate("/");
     } catch (error) {
-      setLoading(false);
-      setError(error.message);
+      dispatch(signInFailure(error.message));
     }
   };
 
@@ -48,8 +52,8 @@ export default function Signin() {
           <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
             <form onSubmit={handleSubmit}>
               <h1 className="mb-8 text-3xl text-center">Sign in</h1>
-  
-                <input
+
+              <input
                 type="text"
                 className="block border border-grey-light w-full p-3 rounded mb-4"
                 name="email"
@@ -68,18 +72,14 @@ export default function Signin() {
               />
               <button
                 type="submit"
-                className="w-full text-center py-3 rounded bg-green-600 text-white hover:bg-green-dark focus:outline-none my-1 hover:bg-green-700"
+                className="w-full text-center py-3 uppercase rounded bg-green-600 text-white hover:bg-green-dark focus:outline-none my-1 hover:bg-green-700"
                 disabled={loading}
               >
                 {loading ? "loading.." : "Sign in"}
               </button>
+              <OAuth/>
             </form>
-            <button
-              type="submit"
-              className="w-full text-center py-3 rounded bg-red-600 text-white hover:bg-green-dark focus:outline-none my-1 hover:bg-red-700"
-            >
-              With google
-            </button>
+            
           </div>
 
           <div className="text-center text-sm text-grey-dark mt-4">

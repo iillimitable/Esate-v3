@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import OAuth from "../components/OAuth";
 
 export default function SignUp() {
   const [formData, setFormData] = useState({});
@@ -76,18 +77,14 @@ export default function SignUp() {
               />
               <button
                 type="submit"
-                className="w-full text-center py-3 rounded bg-green-600 text-white hover:bg-green-dark focus:outline-none my-1 hover:bg-green-700"
+                className="w-full text-center py-3 uppercase rounded bg-green-600 text-white hover:bg-green-dark focus:outline-none my-1 hover:bg-green-700"
                 disabled={loading}
               >
                 {loading ? "loading.." : "Create Account"}
               </button>
+              <OAuth/>
             </form>
-            <button
-              type="submit"
-              className="w-full text-center py-3 rounded bg-red-600 text-white hover:bg-green-dark focus:outline-none my-1 hover:bg-red-700"
-            >
-              With google
-            </button>
+            
           </div>
 
           <div className="text-center text-sm text-grey-dark mt-4">
